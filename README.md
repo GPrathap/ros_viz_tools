@@ -65,7 +65,7 @@ Create a new marker and append it to `markers`. Let's take cube list marker for 
 
 ```c++
 // set marker frame id, namespace and id
-std::string frame_id = "ros_viz_tools";
+std::string frame_id = "ros2_viz_tools";
 std::string ns = "cube_list";
 int id = 0;
 ```
@@ -74,9 +74,9 @@ You can initialize a new marker by two approaches:
 
 ```c++
 // intialize new marker by calling static member function in RosVizTools directly (recommended)
-visualization_msgs::Marker marker = ros_viz_tools::RosVizTools::newCubeList(0.5, ns, id, ros_viz_tools::WHITE, frame_id);
+visualization_msgs::msg::Marker marker = ros2_viz_tools::RosVizTools::newCubeList(0.5, ns, id, ros2_viz_tools::WHITE, frame_id);
 // or by accessing the function through the instance
-visualization_msgs::Marker marker = markers.newCubeList(0.5, ns, id, ros_viz_tools::WHITE, frame_id);
+visualization_msgs::msg::Marker marker = markers.newCubeList(0.5, ns, id, ros2_viz_tools::WHITE, frame_id);
 ```
 
 If the new marker involves a list (cube list, sphere list, line list or line strip), you also need to set a point list.
@@ -84,12 +84,12 @@ If the new marker involves a list (cube list, sphere list, line list or line str
 ```c++
 // modify marker, cube list, for example, also needs a point list.
 for (int i = 0; i < 10; ++i) {
-    geometry_msgs::Point p;
+    geometry_msgs::msg::Point p;
     p.x = i;
     p.y = pow(p.x, 2.0);
     p.z = 1.0;
     marker.points.push_back(p);
-    std_msgs::ColorRGBA color = ros_viz_tools::newColorRGBA(randRGB(e), randRGB(e), randRGB(e));
+    std_msgs::msg::ColorRGBA color = ros2_viz_tools::newColorRGBA(randRGB(e), randRGB(e), randRGB(e));
     marker.colors.push_back(color);
 }
 ```
@@ -107,7 +107,7 @@ At the end, call `publish()` function.
 markers.publish();
 ```
 
-Then you can open Rviz and see the markers published in the frame `ros_viz_tools` and topic `demo_marker`. Don't forget clear your markers at the beginning of every loop:
+Then you can open Rviz and see the markers published in the frame `ros2_viz_tools` and topic `demo_marker`. Don't forget clear your markers at the beginning of every loop:
 
 ```c++
 markers.clear();
@@ -117,7 +117,7 @@ You can see [demo_node.cpp](./src/demo_node.cpp) for better understanding of the
 
 ### Colors
 
-To support colorful marker plotting, `ros_viz_tools` also defines functions and class for easier color settings. Now there are two approaches supported for generating colors:
+To support colorful marker plotting, `ros2_viz_tools` also defines functions and class for easier color settings. Now there are two approaches supported for generating colors:
 
 * function `newColorRGBA` (also with some pre-defined colors in `color.h`) or
 * class `ColorMap` (See `demo_node.cpp` for examples)

@@ -36,10 +36,7 @@ Set catkin package dependencies in your `CMakeLists.txt` and `package.xml`,
 
 ```cmake
 # CMakeLists.txt
-find_package(catkin REQUIRED COMPONENTS
-  ...
-  ros2_viz_tools
-)
+find_package(ros2_viz_tools REQUIRED)
 ```
 
 ```xml

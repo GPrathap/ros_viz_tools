@@ -1,18 +1,18 @@
-# ros_viz_tools
+# ros2_viz_tools
 
-This package is a visualization tool for easier Rviz [marker](http://wiki.ros.org/rviz/DisplayTypes/Marker) plotting.
+This package is a visualization tool for easier Rviz2 [marker](http://wiki.ros.org/rviz/DisplayTypes/Marker) plotting.
 
 ## Dependencies
 
-- Tested on Ubuntu 16.04 LTS & ROS kinetic
+- Tested on Ubuntu 22.04 LTS & ROS Humble
 - tf2_geometry_msgs
 
 ## Quick Start
 
-Build this package under your catkin workspace, run demo node and Rviz (frame: `ros_viz_tools`, topic: `demo_marker`) for a quick look:
+Build this package under your catkin workspace, run demo node and Rviz (frame: `ros2_viz_tools`, topic: `demo_marker`) for a quick look:
 
 ```bash
-roslaunch ros_viz_tools demo_node.launch
+ros2 launch ros2_viz_tools demo_node.launch.py
 ```
 
 ![demo](./images/demo.png)
@@ -38,16 +38,16 @@ Set catkin package dependencies in your `CMakeLists.txt` and `package.xml`,
 # CMakeLists.txt
 find_package(catkin REQUIRED COMPONENTS
   ...
-  ros_viz_tools
+  ros2_viz_tools
 )
 ```
 
 ```xml
 <!-- package.xml -->
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   ...  
-  <depend>ros_viz_tools</depend>
+  <depend>ros2_viz_tools</depend>
   ...
 </package>
 ```
@@ -55,18 +55,11 @@ find_package(catkin REQUIRED COMPONENTS
 Include the header file in your codes,
 
 ```c++
-#include "ros_viz_tools/ros_viz_tools.h"
+#include "ros2_viz_tools/ros2_viz_tools.h"
 ```
 
 ### Markers
 
-Initialize a `RosVizTools` instance named  `markers`,
-
-```c++
-ros::NodeHandle n;
-std::string topic = "demo_marker";
-ros_viz_tools::RosVizTools markers(n, topic);
-```
 
 Create a new marker and append it to `markers`. Let's take cube list marker for example.
 

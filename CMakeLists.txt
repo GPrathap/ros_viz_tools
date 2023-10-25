@@ -35,12 +35,23 @@ set(DEPENDENCIES
 # library
 add_library(${PROJECT_NAME}_lib src/ros2_viz_tools.cpp src/color.cpp)
 ament_target_dependencies(${PROJECT_NAME}_lib ${DEPENDENCIES})
+target_compile_definitions(${PROJECT_NAME}_lib PRIVATE "AMENT_INDEX_CPP_BUILDING_DLL")
+target_include_directories(${PROJECT_NAME}_lib PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+  "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
+
+ament_export_targets(export_${PROJECT_NAME}_lib HAS_LIBRARY_TARGET)
+install(DIRECTORY include/ DESTINATION include/${PROJECT_NAME})
+install(TARGETS ${PROJECT_NAME}_lib
+  EXPORT export_${PROJECT_NAME}_lib
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
 
 add_executable(demo_node src/demo_node.cpp)
 target_link_libraries(demo_node ${PROJECT_NAME}_lib)
 ament_target_dependencies(demo_node ${DEPENDENCIES})
-
-install(TARGETS demo_node
+install(TARGETS demo_node ${PROJECT_NAME}_lib
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -49,6 +60,4 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
-
-ament_export_include_directories(include)
 ament_package()
